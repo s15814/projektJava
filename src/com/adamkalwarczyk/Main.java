@@ -30,6 +30,11 @@ public class Main {
             }
         }
 
+
+//        Context context = new Context(new aiAlwaysTakes());
+//        System.out.println(context.executeStrategy());
+
+
         Logic.chooseSide(scan);
         Logic.printBoard(myArray);
 
