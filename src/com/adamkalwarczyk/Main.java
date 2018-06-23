@@ -1,5 +1,7 @@
 package com.adamkalwarczyk;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -10,25 +12,27 @@ public class Main {
 
         int boardHeight = 8;
         int boardWidth = 8;
-
-        String[][] myArray = new String[boardHeight][boardWidth];
+//      create the board and put the pieces in place
+        String[][] myBoard = new String[boardHeight][boardWidth];
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < boardWidth; j++) {
-                myArray[i][j] = "B";
+                myBoard[i][j] = "B";
             }
         }
 
         for (int i = 2; i < 6; i++) {
             for (int j = 0; j < boardWidth; j++) {
-                myArray[i][j] = " ";
+                myBoard[i][j] = " ";
             }
         }
 
         for (int i = 6; i < boardHeight; i++) {
             for (int j = 0; j < boardWidth; j++) {
-                myArray[i][j] = "W";
+                myBoard[i][j] = "W";
             }
         }
+
+        List<String> aiOptions = new ArrayList<>();
 
 
 //        Context context = new Context(new aiAlwaysTakes());
@@ -36,14 +40,20 @@ public class Main {
 
 
         Logic.chooseSide(scan);
-        Logic.printBoard(myArray);
+        Logic.choseGameplayMode(scan);
+
 
         boolean winCondition = true;
 
         while(winCondition) {
-            myArray = Logic.doMove(myArray,Logic.movePickPawn(scan, myArray), Logic.movePickEndPosition(scan));
-            Logic.printBoard(myArray);
-            winCondition = Logic.checkWinCondition(myArray);
+            aiOptions = Logic.findValidAiMove(myBoard, aiOptions);
+            for (String move: aiOptions) {
+                System.out.println(move);
+            }
+            Logic.printBoard(myBoard);
+            myBoard = Logic.doMove(myBoard,Logic.movePickPawn(scan, myBoard), Logic.movePickEndPosition(scan));
+            Logic.printBoard(myBoard);
+            winCondition = Logic.checkWinCondition(myBoard);
         }
 
     }

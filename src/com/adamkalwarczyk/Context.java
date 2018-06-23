@@ -6,8 +6,8 @@ public class Context {
     public Context(Strategy strategy){
         this.strategy = strategy;
     }
-    public String executeStrategy() {
-        return strategy.aiGameplay();
+    public String executeStrategy(String[][] boardArray) {
+        return strategy.aiGameplay(boardArray);
     }
 
 

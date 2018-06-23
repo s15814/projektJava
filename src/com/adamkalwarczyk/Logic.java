@@ -1,5 +1,6 @@
 package com.adamkalwarczyk;
 
+import java.util.List;
 import java.util.Scanner;
 
 
@@ -152,6 +153,118 @@ public class Logic {
             }
         }
         return true;
+    }
+
+    public static List<String> findValidAiMove(String[][] boardArray, List<String> optionsArray) {
+        optionsArray.clear();
+        switch (side) {
+            case "white": {
+                for (int i = 0; i < 8; i++) {
+                    for (int j = 0; j < 8; j++) {
+                        if (boardArray[i][j].equals("W")) {
+                            if (i > 0){
+                                if (j == 0) {
+                                    if (boardArray[i - 1][j].equals(" ")) {
+                                        optionsArray.add(String.valueOf(i) + String.valueOf(j) + String.valueOf(i - 1) + String.valueOf(j));
+                                    }
+                                    if (boardArray[i - 1][j + 1].equals(" ") || boardArray[i - 1][j + 1].equals("B")) {
+                                        optionsArray.add(String.valueOf(i) + String.valueOf(j) + String.valueOf(i - 1) + String.valueOf(j + 1));
+                                    }
+                                } else if (j == 7) {
+                                    if (boardArray[i - 1][j].equals(" ")) {
+                                        optionsArray.add(String.valueOf(i) + String.valueOf(j) + String.valueOf(i - 1) + String.valueOf(j));
+                                    }
+                                    if (boardArray[i - 1][j - 1].equals(" ") || boardArray[i - 1][j - 1].equals("B")) {
+                                        optionsArray.add(String.valueOf(i) + String.valueOf(j) + String.valueOf(i - 1) + String.valueOf(j - 1));
+                                    }
+                                } else {
+                                    if (boardArray[i - 1][j].equals(" ")) {
+                                        optionsArray.add(String.valueOf(i) + String.valueOf(j) + String.valueOf(i - 1) + String.valueOf(j));
+                                    }
+                                    if (boardArray[i - 1][j - 1].equals(" ") || boardArray[i - 1][j - 1].equals("B")) {
+                                        optionsArray.add(String.valueOf(i) + String.valueOf(j) + String.valueOf(i - 1) + String.valueOf(j - 1));
+                                    }
+                                    if (boardArray[i - 1][j + 1].equals(" ") || boardArray[i - 1][j + 1].equals("B")) {
+                                        optionsArray.add(String.valueOf(i) + String.valueOf(j) + String.valueOf(i - 1) + String.valueOf(j + 1));
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return optionsArray;
+        case "black": {
+            for (int i = 0; i < 8; i++) {
+                for (int j = 0; j < 8; j++) {
+                    if (boardArray[i][j].equals("B")) {
+                        if (i < 7){
+                            if (j == 0) {
+                                if (boardArray[i + 1][j].equals(" ")) {
+                                    optionsArray.add(String.valueOf(i) + String.valueOf(j) + String.valueOf(i + 1) + String.valueOf(j));
+                                }
+                                if (boardArray[i + 1][j + 1].equals(" ") || boardArray[i + 1][j + 1].equals("W")) {
+                                    optionsArray.add(String.valueOf(i) + String.valueOf(j) + String.valueOf(i + 1) + String.valueOf(j + 1));
+                                }
+                            } else if (j == 7) {
+                                if (boardArray[i + 1][j].equals(" ")) {
+                                    optionsArray.add(String.valueOf(i) + String.valueOf(j) + String.valueOf(i + 1) + String.valueOf(j));
+                                }
+                                if (boardArray[i + 1][j - 1].equals(" ") || boardArray[i + 1][j - 1].equals("W")) {
+                                    optionsArray.add(String.valueOf(i) + String.valueOf(j) + String.valueOf(i + 1) + String.valueOf(j - 1));
+                                }
+                            } else {
+                                if (boardArray[i + 1][j].equals(" ")) {
+                                    optionsArray.add(String.valueOf(i) + String.valueOf(j) + String.valueOf(i + 1) + String.valueOf(j));
+                                }
+                                if (boardArray[i + 1][j - 1].equals(" ") || boardArray[i + 1][j - 1].equals("W")) {
+                                    optionsArray.add(String.valueOf(i) + String.valueOf(j) + String.valueOf(i + 1) + String.valueOf(j - 1));
+                                }
+                                if (boardArray[i + 1][j + 1].equals(" ") || boardArray[i + 1][j + 1].equals("W")) {
+                                    optionsArray.add(String.valueOf(i) + String.valueOf(j) + String.valueOf(i + 1) + String.valueOf(j + 1));
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+
+            break;
+        }
+    }
+
+        return optionsArray;
+    }
+
+    public static void choseGameplayMode(Scanner scanner) {
+        boolean checker = true;
+        while (checker) {
+            System.out.println("Choose the gameplay mode. Type 1 for player versus player, 2 for player versus random ai, 3 for player versus aggressive ai: ");
+            String field = scanner.nextLine();
+            if (field.toLowerCase().matches("[123]")) {
+                checker = false;
+                switch (field) {
+                    case "1": {
+                        System.out.println("You chose player versus player.");
+                        break;
+                    }
+                    case "2": {
+                        System.out.println("You chose the random ai as your opponent");
+                        Context context = new Context(new aiRandom());
+                        break;
+                    }
+                    case "3": {
+                        System.out.println("You chose the aggressive ai as your opponent");
+                        Context context = new Context(new aiAlwaysTakes());
+                        break;
+                    }
+                }
+            } else {
+                System.out.println("Please enter a valid choice.");
+            }
+        }
+
     }
 
 // zmiana litery ze wspolrzednych pola na cyfre
