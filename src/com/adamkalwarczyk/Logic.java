@@ -237,7 +237,8 @@ public class Logic {
         return optionsArray;
     }
 
-    public static void choseGameplayMode(Scanner scanner) {
+    public static int choseGameplayMode(Scanner scanner) {
+        int selectedMode = 0;
         boolean checker = true;
         while (checker) {
             System.out.println("Choose the gameplay mode. Type 1 for player versus player, 2 for player versus random ai, 3 for player versus aggressive ai: ");
@@ -251,12 +252,12 @@ public class Logic {
                     }
                     case "2": {
                         System.out.println("You chose the random ai as your opponent");
-                        Context context = new Context(new aiRandom());
+                        selectedMode = 2;
                         break;
                     }
                     case "3": {
                         System.out.println("You chose the aggressive ai as your opponent");
-                        Context context = new Context(new aiAlwaysTakes());
+                        selectedMode = 3;
                         break;
                     }
                 }
@@ -264,7 +265,7 @@ public class Logic {
                 System.out.println("Please enter a valid choice.");
             }
         }
-
+        return selectedMode;
     }
 
 // zmiana litery ze wspolrzednych pola na cyfre

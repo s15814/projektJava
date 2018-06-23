@@ -12,7 +12,7 @@ public class Main {
 
         int boardHeight = 8;
         int boardWidth = 8;
-//      create the board and put the pieces in place
+//      Utworzenie planszy i rozstawienie pionkow
         String[][] myBoard = new String[boardHeight][boardWidth];
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < boardWidth; j++) {
@@ -31,21 +31,17 @@ public class Main {
                 myBoard[i][j] = "W";
             }
         }
-
+//        Lista do przechowywania wspolrzednych startowych i koncowych mozliwych ruchow pionkow
         List<String> aiOptions = new ArrayList<>();
 
 
-//        Context context = new Context(new aiAlwaysTakes());
-//        System.out.println(context.executeStrategy());
-
 
         Logic.chooseSide(scan);
-        Logic.choseGameplayMode(scan);
-
 
         boolean winCondition = true;
 
         while(winCondition) {
+//          wypisanie mozliwych ruchow komputera
             aiOptions = Logic.findValidAiMove(myBoard, aiOptions);
             for (String move: aiOptions) {
                 System.out.println(move);
@@ -57,6 +53,4 @@ public class Main {
         }
 
     }
-
 }
-
